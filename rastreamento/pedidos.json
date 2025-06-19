@@ -1,0 +1,17 @@
+[
+  {
+    "cpf": "12345678900",
+    "numero": "PED001",
+    "rastreio": "BR123456789BR"
+  },
+  {
+    "cpf": "98765432100",
+    "numero": "PED002",
+    "rastreio": "BR987654321BR"
+  },
+  {
+    "cpf": "111",
+    "numero": "PED002",
+    "rastreio": ""
+  }
+]
