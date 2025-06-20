@@ -2,16 +2,26 @@
   {
     "cpf": "12345678900",
     "numero": "PED001",
-    "rastreio": "BR123456789BR"
+    "rastreio": "123456789"
   },
   {
     "cpf": "98765432100",
     "numero": "PED002",
-    "rastreio": "BR987654321BR"
+    "rastreio": "987654321"
   },
   {
     "cpf": "111",
-    "numero": "PED002",
+    "numero": "PED003",
     "rastreio": ""
+  },
+  {
+    "cpf": "222",
+    "numero": "PED004",
+    "rastreio": ""
+  },
+  {
+    "cpf": "222",
+    "numero": "PED005",
+    "rastreio": "242454355"
   }
 ]

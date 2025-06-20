@@ -10,22 +10,30 @@ async function buscar() {
     const response = await fetch('pedidos.json');
     const pedidos = await response.json();
 
-    const pedido = pedidos.find(p => p.cpf === termo || p.numero === termo);
+    const pedidosFiltrados = pedidos.filter(e => e.cpf === termo || e.numero === termo);
 
-    if (pedido) {
-      if (!pedido.rastreio || pedido.rastreio.trim() === "") {
-        resultadoDiv.innerHTML = `Seu pedido está em preparação`;
-        rastreioDiv.innerHTML = "";
-      } else {
-        resultadoDiv.innerHTML = `<strong>Pedido encontrado!</strong><br>Código de rastreio: <b>${pedido.rastreio}</b>`;
+    if (pedidosFiltrados.length > 0) {
+      resultadoDiv.innerHTML = `Seus pedidos`;
+      rastreioDiv.innerHTML = "";
 
-        const linkRastreamento = `https://www.jtexpress.com.br/mobile/expressTracking?code=${pedido.rastreio}`;
+      pedidosFiltrados.forEach(pedido => {
+        let infoPedido = "";
 
-        rastreioDiv.innerHTML = `
-          <p>Acompanhamento no site da transportadora:</p>
-          <iframe src="${linkRastreamento}" style="width:100%; height:400px; border:none;"></iframe>
-        `;
-      }
+        if (!pedido.rastreio || pedido.rastreio.trim() === "") {
+          infoPedido = `<p>Pedido <strong>#${pedido.numero}</strong> está em preparação!</p>`;
+        } else {
+          const linkRastreamento = `https://www.jtexpress.com.br/mobile/expressTracking?code=${pedido.rastreio}`;
+          infoPedido = `
+            <p><strong>Pedido #${pedido.numero}</strong> já foi enviado!</p>
+            <p>Código de rastreio: <b>${pedido.rastreio}</b></p>
+            <p><a href="${linkRastreamento}" target="_blank">Acompanhar na J&T Express</a></p>
+            <iframe src="${linkRastreamento}" style="width:100%; height:200px; border:none;"></iframe>
+          `;
+        }
+
+        rastreioDiv.innerHTML += infoPedido;
+      });
+
     } else {
       resultadoDiv.innerHTML = "Pedido não encontrado. Verifique os dados digitados.";
       rastreioDiv.innerHTML = "";
