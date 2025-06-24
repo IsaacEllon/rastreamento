@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
@@ -16,13 +17,12 @@ header {
 }
 
 main {
-    margin-top: 20px;
+    flex: 1 0 auto; /* Flexível e cresce conforme necessário */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     padding: 15px;
-    flex-grow: 1;
     font-weight: bold;
 }
 
@@ -91,6 +91,7 @@ iframe {
 }
 
 .rodape {
+    flex-shrink: 0;
     background: #000;
     color: #fff;
     text-align: center;
@@ -136,6 +137,12 @@ iframe {
     width: 20px;
     height: auto;
 }
+
+.rodape p:last-child,
+.info-final p:last-child {
+    margin-bottom: 0;
+}
+
 
 
 /* ======================== */
