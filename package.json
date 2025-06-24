@@ -1,6 +1,7 @@
 {
-  "name": "rastreio-site",
+  "name": "rastreio-buq",
   "version": "1.0.0",
+  "description": "Site de rastreamento BUQ",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
