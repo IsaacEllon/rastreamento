@@ -70,5 +70,5 @@ for nome_arquivo in os.listdir(pasta_xml):
 with open(arquivo_saida, "w", encoding="utf-8") as f:
     json.dump(dados_extraidos, f, ensure_ascii=False, indent=4)
 
-print(f"\n✅ Extração finalizada. {total_processados} arquivos processados.")
-print(f"📄 Arquivo JSON salvo em: {arquivo_saida}")
+print(f"\n Extração finalizada. {total_processados} arquivos processados.")
+print(f" Arquivo JSON salvo em: {arquivo_saida}")
