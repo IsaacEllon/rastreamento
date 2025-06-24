@@ -14,26 +14,34 @@ async function buscar() {
   resultadoDiv.innerHTML = "Buscando...";
 
   try {
-    const response = await fetch('script/cte_pedidos_jms.json');
+    const response = await fetch('script/resultado_combinado.json');
     if (!response.ok) throw new Error('Erro ao carregar o JSON');
 
     const pedidos = await response.json();
 
-    const pedidosEncontrados = pedidos.filter(p => p.documento_destinatario === termo || p.pedido_jms === termo);
+    const pedidosEncontrados = pedidos.filter(p =>
+      p.cpf === termo || p.pedido_jms === termo || p.detalhes_pedido?.["Número do Pedido"] === termo
+    );
 
     if (pedidosEncontrados.length > 0) {
       resultadoDiv.innerHTML = `<p><strong>${pedidosEncontrados.length} pedido(s) encontrado(s):</strong></p>`;
+
       rastreioDiv.innerHTML = pedidosEncontrados.map(pedido => {
-        if (pedido.pedido_jms) {
+        const numeroPedido = pedido.detalhes_pedido?.["Número do Pedido"] || "Não informado";
+        const codigoRastreio = pedido.pedido_jms || "";
+
+        if (codigoRastreio) {
           return `
             <div style="margin-bottom: 15px;">
-              <p><strong>Código de rastreamento:</strong> ${pedido.pedido_jms}</p>
+              <p><strong>Número do Pedido:</strong> ${numeroPedido}</p>
+              <p><strong>Código de Rastreamento:</strong> ${codigoRastreio}</p>
               <p><a href="https://www.jtexpress.com.br/mobile/expressTracking" target="_blank">Acompanhar na J&T Express</a></p>
             </div>
           `;
         } else {
           return `
             <div style="margin-bottom: 15px;">
+              <p><strong>Número do Pedido:</strong> ${numeroPedido}</p>
               <p><strong>Pedido em preparação.</strong></p>
               <p>O código de rastreio ainda não foi gerado.</p>
             </div>

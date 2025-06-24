@@ -5,10 +5,10 @@ import json
 print("Iniciando a extração de dados dos CT-es...")
 
 # Caminho da pasta com os XMLs
-pasta_xml = r"C:\Users\atend\OneDrive\Documentos\GitHub\rastreamento\rastreamento\python\cte"
+pasta_xml = r"C:\Users\atend\OneDrive\Documentos\GitHub\rastreamento\public\python\cte"
 
 # Caminho onde o JSON será salvo
-pasta_saida = r"C:\Users\atend\OneDrive\Documentos\GitHub\rastreamento\rastreamento\script"
+pasta_saida = r"C:\Users\atend\OneDrive\Documentos\GitHub\rastreamento\public\python"
 arquivo_saida = os.path.join(pasta_saida, "cte_pedidos_jms.json")
 
 # Namespace XML
