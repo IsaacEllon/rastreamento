@@ -19,24 +19,27 @@ async function buscar() {
 
     const pedidos = await response.json();
 
-    const pedido = pedidos.find(p => p.documento_destinatario === termo || p.pedido_jms === termo);
+    const pedidosEncontrados = pedidos.filter(p => p.documento_destinatario === termo || p.pedido_jms === termo);
 
-    if (pedido) {
-      resultadoDiv.innerHTML = "";
-
-      if (pedido.pedido_jms) {
-        rastreioDiv.innerHTML = `
-          <p><strong>Pedido encontrado!</strong></p>
-          <p>Código de rastreio: <strong>${pedido.pedido_jms}</strong></p>
-          <p><a href="https://www.jtexpress.com.br/mobile/expressTracking" target="_blank">Acompanhar na J&T Express</a></p>
-        `;
-      } else {
-        rastreioDiv.innerHTML = `
-          <p><strong>Pedido encontrado!</strong></p>
-          <p>O pedido está em preparação. O código de rastreio ainda não foi gerado.</p>
-        `;
-      }
-
+    if (pedidosEncontrados.length > 0) {
+      resultadoDiv.innerHTML = `<p><strong>${pedidosEncontrados.length} pedido(s) encontrado(s):</strong></p>`;
+      rastreioDiv.innerHTML = pedidosEncontrados.map(pedido => {
+        if (pedido.pedido_jms) {
+          return `
+            <div style="margin-bottom: 15px;">
+              <p><strong>Código de rastreamento:</strong> ${pedido.pedido_jms}</p>
+              <p><a href="https://www.jtexpress.com.br/mobile/expressTracking" target="_blank">Acompanhar na J&T Express</a></p>
+            </div>
+          `;
+        } else {
+          return `
+            <div style="margin-bottom: 15px;">
+              <p><strong>Pedido em preparação.</strong></p>
+              <p>O código de rastreio ainda não foi gerado.</p>
+            </div>
+          `;
+        }
+      }).join('');
     } else {
       resultadoDiv.innerHTML = "Pedido não encontrado. Verifique os dados digitados.";
     }

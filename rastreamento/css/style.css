@@ -103,17 +103,8 @@ iframe {
     text-decoration: underline;
 }
 
-.social img {
-    margin-bottom: 10px;
-}
-
 .menu-footer {
     margin: 15px 0;
-}
-
-.contato p {
-    margin: 5px 0;
-    font-size: 0.8em;
 }
 
 .contato img {
@@ -125,6 +116,22 @@ iframe {
     margin-top: 20px;
     font-size: 0.7em;
 }
+
+.rodape img {
+    width: 24px;
+    height: auto;
+}
+
+.social img {
+    width: 20px;
+    height: auto;
+}
+
+.contato img {
+    width: 20px;
+    height: auto;
+}
+
 
 /* ======================== */
 /* ESTILOS PARA TELAS MAIORES (tablet e desktop) */
