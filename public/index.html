@@ -1,60 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Consulta de Rastreio</title>
-  <link rel="shortcut icon" href="imagens/IconWebpage.png" type="image/x-icon">
-  <link rel="stylesheet" href="css/style.css">
-</head>
+  <link rel="shortcut icon" href="imagens/IconWebpage.png" type="image/x-icon" />
+  <link rel="stylesheet" href="css/style.css" />
 <body>
 
-<header>
+  <header>
     <h2>Rastreamento de Pedido</h2>
-</header>
+  </header>
 
-<main>
-  <div class="centro">
-    <label>Digite o seu CPF ou número do pedido:</label><br>
-    <input type="text" id="busca" placeholder="Ex: 12345678900 ou 000000">
-    <button onclick="buscar()">Buscar</button>
+  <main>
+    <div class="centro">
+      <div class="busca-box">
+        <label for="busca">Digite seu CPF:</label>
+        <div class="busca-linha">
+          <input type="text" id="busca" placeholder="___.___.___-__" />
+          <button onclick="buscar()">BUSCAR</button>
+        </div>
+      </div>
 
-    <div id="resultado"></div>
-    <div id="rastreio"></div>
-  </div>
-</main>
+      <div id="resultado"></div>
+      <div id="rastreio"></div>
+    </div>
+  </main>
 
-<footer class="rodape">
-  <div class="social">
-    <a href="https://www.instagram.com/usebuq/" target="_blank">
-      <img src="imagens/icons8-instagram-50.png" alt="Instagram">
-    </a>
-  </div>
+  <footer class="rodape">
+    <div class="social">
+      <a href="https://www.instagram.com/usebuq/" target="_blank">
+        <img src="imagens/icons8-instagram-50.png" alt="Instagram" />
+      </a>
+    </div>
 
-  <nav class="menu-footer">
-    <a href="https://suporte.up.railway.app/">Fale Conosco</a>
-    <a href="https://www.buqcareoficial.com.br/politica-de-troca-e-devolucao/">Política de Troca e Devolução</a>
-    <a href="https://www.buqcareoficial.com.br/politica-de-privacidade/">Política de Privacidade</a>
-  </nav>
+    <nav class="menu-footer">
+      <a href="https://suporte.up.railway.app/">Fale Conosco</a>
+      <a href="https://www.buqcareoficial.com.br/politica-de-troca-e-devolucao/">Política de Troca e Devolução</a>
+      <a href="https://www.buqcareoficial.com.br/politica-de-privacidade/">Política de Privacidade</a>
+    </nav>
 
-  <div class="contato">
-    <p>
-      <img src="imagens/icons8-letter-48.png" alt="email"> 
-      suporte@buqcareoficial.com.br
-    </p>
-    <p>
-      <img src="https://img.icons8.com/ios-filled/16/ffffff/marker.png" alt="localização">
-      ROD BR 116 | Nº 2555 | MODU 17 | PARQUE IRACEMA 60.824-115 | FORTALEZA - CE
-    </p>
-  </div>
+    <div class="contato">
+      <p>
+        <img src="imagens/icons8-letter-48.png" alt="email" />
+        suporte@buqcareoficial.com.br
+      </p>
+      <p>
+        <img src="https://img.icons8.com/ios-filled/16/ffffff/marker.png" alt="localização" />
+        ROD BR 116 | Nº 2555 | MODU 17 | PARQUE IRACEMA 60.824-115 | FORTALEZA - CE
+      </p>
+    </div>
 
-  <div class="info-final">
-    <p>© Copyright BUQ CARE LTDA - 46.772.140/000146 - 2025</p>
-    <p>Todos os direitos reservados.</p>
-  </div>
-</footer>
+    <div class="info-final">
+      <p>© Copyright BUQ CARE LTDA - 46.772.140/000146 - 2025</p>
+      <p>Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
-<script src="script/index.js"></script>
-
+  <script src="script/index.js"></script>
 </body>
 </html>

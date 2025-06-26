@@ -1,185 +1,191 @@
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
 }
 
 header {
-    font-weight: bold;
-    background-color: #8b30a6;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    font-size: 1.2em;
+  font-weight: bold;
+  background-color: #8b30a6;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2em;
 }
 
 main {
-    flex: 1 0 auto; /* Flexível e cresce conforme necessário */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 15px;
-    font-weight: bold;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 15px;
+  font-weight: bold;
 }
 
-.centro {
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+/* Input e botão */
+.busca-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  max-width: 420px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-label {
-    font-size: 1em;
-    display: block;
-    margin-bottom: 10px;
+.busca-box input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 15px;
-    border: 1px solid #a7a7a7;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+.busca-box button {
+  background-color: #8b30a6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.95rem;
 }
 
-button {
-    width: 100%;
-    background-color: #8b30a6;
-    color: white;
-    padding: 10px;
-    border-radius: 15px;
-    border: 1px solid #a7a7a7;
-    cursor: pointer;
+.busca-box button:hover {
+  background-color: #6e2185;
 }
 
-button:hover {
-    background-color: white;
-    color: #8b30a6;
-    border-color: #8b30a6;
-}
-
+/* Quantidade de pedidos */
 #resultado {
+  padding: 8px;
+  margin-top: 10px;
+  font-size: 0.9em;
+  
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* caso queira empilhar elementos futuramente */
+}
+
+
+#rastreio > div {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 20px;
+  max-width: 420px;
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+#rastreio .pedido-id {
+    background-color: #f3f2f2;
+    border-radius: 3px;
     padding: 8px;
-    margin-top: 10px;
-    font-size: 0.9em;
+    font-size: 1rem;
 }
 
-#rastreio {
-    padding: 10px;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 1em;
+#rastreio .pedido-id span {
+  background-color: #8b30a6;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 8px;
+  margin-left: 8px;
 }
 
-#textoRastreamento {
-    color: red;
+.bloco-rastreamento {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  text-align: left;
 }
 
-iframe {
-    width: 100%;
-    height: 300px;
-    border: none;
+.label-rastreamento {
+  color: #888;
+  font-size: 0.7em;
+  margin: 0 0 4px 0;
+}
+
+.codigo-rastreamento {
+  color: #8b30a6;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 0;
+}
+
+
+.jt-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  background-color: #d63031;
+  color: white;
+  border: none;
+  padding: 2px 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin: 0px 15%;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.jt-button:hover {
+  background-color: #b71c1c;
 }
 
 .rodape {
-    flex-shrink: 0;
-    background: #000;
-    color: #fff;
-    text-align: center;
-    padding: 20px 10px;
-    font-size: 0.8em;
+  flex-shrink: 0;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 0.8em;
 }
 
 .rodape a {
-    color: #fff;
-    margin: 0 5px;
-    text-decoration: none;
+  color: #fff;
+  margin: 0 5px;
+  text-decoration: none;
 }
 
 .rodape a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .menu-footer {
-    margin: 15px 0;
+  margin: 15px 0;
 }
 
 .contato img {
-    margin-right: 5px;
-    vertical-align: middle;
+  margin-right: 5px;
+  vertical-align: middle;
+  width: 20px;
 }
 
 .info-final {
-    margin-top: 20px;
-    font-size: 0.7em;
+  margin-top: 20px;
+  font-size: 0.7em;
 }
 
-.rodape img {
-    width: 24px;
-    height: auto;
-}
-
+.rodape img,
 .social img {
-    width: 20px;
-    height: auto;
-}
-
-.contato img {
-    width: 20px;
-    height: auto;
+  width: 24px;
+  height: auto;
 }
 
 .rodape p:last-child,
 .info-final p:last-child {
-    margin-bottom: 0;
-}
-
-
-
-/* ======================== */
-/* ESTILOS PARA TELAS MAIORES (tablet e desktop) */
-/* ======================== */
-
-@media (min-width: 600px) {
-    header {
-        padding: 15px;
-        font-size: 1.5em;
-    }
-
-    .centro {
-        padding: 30px;
-    }
-
-    input, button {
-        width: auto;
-        display: inline-block;
-        margin-right: 10px;
-    }
-
-    button {
-        padding: 10px 20px;
-    }
-}
-
-@media (min-width: 900px) {
-    main {
-        justify-content: center;
-    }
-
-    .centro {
-        max-width: 600px;
-    }
-
-    iframe {
-        height: 400px;
-    }
+  margin-bottom: 0;
 }

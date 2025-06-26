@@ -1,5 +1,27 @@
+function validarCPF(cpf) {
+  cpf = cpf.replace(/\D/g, '');
+  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+  let soma = 0;
+  for (let i = 0; i < 9; i++) {
+    soma += parseInt(cpf.charAt(i)) * (10 - i);
+  }
+  let resto = 11 - (soma % 11);
+  let digito1 = resto >= 10 ? 0 : resto;
+
+  soma = 0;
+  for (let i = 0; i < 10; i++) {
+    soma += parseInt(cpf.charAt(i)) * (11 - i);
+  }
+  resto = 11 - (soma % 11);
+  let digito2 = resto >= 10 ? 0 : resto;
+
+  return cpf.charAt(9) == digito1 && cpf.charAt(10) == digito2;
+}
+
 async function buscar() {
   let termo = document.getElementById('busca').value.trim();
+  termo = termo.replace(/\D/g, ''); // Apenas números
 
   const resultadoDiv = document.getElementById('resultado');
   const rastreioDiv = document.getElementById('rastreio');
@@ -8,12 +30,14 @@ async function buscar() {
   rastreioDiv.innerHTML = "";
 
   if (!termo) {
-    resultadoDiv.innerHTML = "Por favor, digite o CPF ou número do pedido.";
+    resultadoDiv.innerHTML = "Por favor, digite o CPF.";
     return;
   }
 
-  // 🔍 Limpar termo para conter apenas números
-  termo = termo.replace(/\D/g, '');
+  if (termo.length !== 11 || !validarCPF(termo)) {
+    resultadoDiv.innerHTML = "O CPF informado é inválido. Verifique e tente novamente.";
+    return;
+  }
 
   resultadoDiv.innerHTML = "Buscando...";
 
@@ -23,29 +47,10 @@ async function buscar() {
 
     const pedidos = await response.json();
 
-    // Converter termo para número se possível
-    const numeroDigitado = parseInt(termo);
-
-    // Maior número de pedido com rastreio
-    const pedidosComRastreio = pedidos.filter(p =>
-      p.pedido_jms && p.detalhes_pedido?.["Número do Pedido"]
-    );
-
-    const maiorNumeroComRastreio = Math.max(
-      ...pedidosComRastreio.map(p =>
-        parseInt(p.detalhes_pedido["Número do Pedido"].toString().replace(/\D/g, ''))
-      ).filter(n => !isNaN(n)),
-      0
-    );
-
-    // 🔎 Buscar por CPF, pedido_jms ou número do pedido (tudo com apenas números)
     const encontrados = pedidos.filter(p =>
-      (p.cpf || "").replace(/\D/g, '') === termo ||
-      (p.pedido_jms || "").replace(/\D/g, '') === termo ||
-      (p.detalhes_pedido?.["Número do Pedido"] || "").toString().replace(/\D/g, '') === termo
+      (p.cpf || "").replace(/\D/g, '') === termo
     );
 
-    // ✅ Remover duplicados por pedido_jms
     const unicosPorRastreio = [];
     const rastreiosVistos = new Set();
 
@@ -57,43 +62,37 @@ async function buscar() {
       }
     }
 
-    // Exibe os resultados encontrados
     if (unicosPorRastreio.length > 0) {
       resultadoDiv.innerHTML = `<p><strong>${unicosPorRastreio.length} pedido(s) encontrado(s):</strong></p>`;
 
       rastreioDiv.innerHTML = unicosPorRastreio.map(pedido => {
-        const numeroPedidoOriginal = pedido.detalhes_pedido?.["Número do Pedido"] || "";
-        const numeroPedido = numeroPedidoOriginal.toString().replace(/\D/g, '') || "Não informado";
+        const numeroPedido = (pedido.detalhes_pedido?.["Número do Pedido"] || "Não informado").toString().replace(/\D/g, '');
+        const codigoRastreio = (pedido.pedido_jms || "").toString().replace(/\D/g, '') || "";
 
-        const codigoRastreioOriginal = pedido.pedido_jms || "";
-        const codigoRastreio = codigoRastreioOriginal.toString().replace(/\D/g, '') || "Não informado";
-
-        if (codigoRastreio !== "Não informado") {
+        if (codigoRastreio) {
           return `
-            <div style="margin-bottom: 15px;">
-              <p>Número do Pedido:<p id="textoRastreamento"> ${numeroPedido}</p></p>
-              <p>Código de Rastreamento:<p id="textoRastreamento"> ${codigoRastreio}</p></p>
-              <p><a href="https://www.jtexpress.com.br/mobile/expressTracking" target="_blank">Acompanhar na J&T Express</a></p>
+            <div>
+              <p class="pedido-id">Pedido: <span>${numeroPedido}</span></p>
+              <div class="bloco-rastreamento">
+                <p class="label-rastreamento">código de rastreamento:</p>
+                <p class="codigo-rastreamento">${codigoRastreio}</p>
+              </div>
+              <a class="jt-button" href="https://www.jtexpress.com.br/mobile/expressTracking" target="_blank">acompanhar na J&T Express</a>
             </div>
           `;
         } else {
           return `
-            <div style="margin-bottom: 15px;">
-              <p>Número do Pedido: <p id="textoRastreamento">${numeroPedido}</p></p>
+            <div>
+              <p class="pedido-id">Pedido: <span>${numeroPedido}</span></p>
               <p><strong>Pedido em preparação.</strong></p>
               <p>O código de rastreio ainda não foi gerado.</p>
             </div>
           `;
         }
       }).join('');
-
-    } else if (!isNaN(numeroDigitado) && numeroDigitado > maiorNumeroComRastreio) {
-      // Se for um novo número de pedido
-      resultadoDiv.innerHTML = `<p>Pedido <p id="textoRastreamento">${numeroDigitado}</p> ainda não possui código de rastreamento.</p>`;
-      rastreioDiv.innerHTML = ``;
-
     } else {
-      resultadoDiv.innerHTML = "Pedido não encontrado. Verifique os dados digitados.";
+      resultadoDiv.innerHTML = `<p>Não localizamos pedidos com este CPF no momento. Se acabou de comprar, aguarde alguns minutos e tente novamente.</p>`;
+      rastreioDiv.innerHTML = "";
     }
 
   } catch (error) {
@@ -102,7 +101,7 @@ async function buscar() {
   }
 }
 
-// 🔁 Buscar ao pressionar Enter
+// Aciona busca com Enter
 document.getElementById('busca').addEventListener('keydown', function (event) {
   if (event.key === 'Enter') {
     buscar();
