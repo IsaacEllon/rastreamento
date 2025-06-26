@@ -39,7 +39,7 @@ async function buscar() {
     return;
   }
 
-  resultadoDiv.innerHTML = "Buscando...";
+  resultadoDiv.innerHTML = `<div class="spinner"></div>`;
 
   try {
     const response = await fetch('script/resultado_combinado.json');
